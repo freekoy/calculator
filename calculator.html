@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算器</title>
+   <!--用三个参数和一个结果输入来进行运算-->
+</head>
+<style>
+  .main {
+    width: 420px;
+    height: 620px;
+  }
+  .main div {
+    float: left;
+  }
+  .main button {
+    width: 100px;
+    height: 100px;
+    font-size:40px;
+  }
+  .col-xs-8 {
+    width: 75%;
+  }
+  .col-xs-4 {
+    width: 25%;
+  }
+  .input {
+    width: 410px;
+    height: 50px;
+    font-size:40px;
+  }
+</style>
+<body>
+  <h1>加减乘除计算器</h1>
+  <div class="main">
+    <input type="text" class="input" name="" value="">
+    <input type="text" class="input" name="" value="">
+    <div class="col-xs-8">
+      <button class="clear">清空</button>
+      <button class="back">回退</button>
+      <button class="count" name='divide'>/</button>
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="percent">%</button>
+      <button class="number">0</button>
+      <button class="number">.</button>
+    </div>
+    <div class="col-xs-4">
+      <button class="count" name='multiply'>x</button>
+      <button class="count" name='add'>+</button>
+      <button class="count" name='minus'>-</button>
+      <button class="result" style="height:200px;">=</button>
+    </div>
+  </div>
+</body>
+<script>
+  var numone = 0;
+  var numtwo = 0;
+  var count = '';//运算规则
+  var	operator = '';//运算符
+  var display = document.getElementsByTagName('input')[0];
+  var input = document.getElementsByTagName('input')[1];
+  var main = document.getElementsByClassName('main')[0];
+  var clear = document.getElementsByClassName('clear')[0];
+  var back = document.getElementsByClassName('back')[0];
+  main.onclick = function(event) {
+    if(event.target.className == 'number') {
+      input.value += event.target.innerHTML;
+    }else if(event.target.className == 'percent') {
+      input.value = parseFloat(input.value) / 100;
+    }else if(event.target.className == 'count') {
+      if(input.value != '') {
+        numone = input.value;
+      }
+      count = event.target.name;
+      operator = event.target.innerHTML;
+      input.value = '';
+    }else if(event.target.className == 'result') {
+      numtwo = input.value;
+      console.log('result',numone,numtwo,count);
+      display.value = numone + operator + numtwo;
+      input.value = countResult(numone,numtwo,count);
+      numone = input.value;
+    }
+  }
+
+  function countResult(numone,numtwo,count) {
+    switch (count) {
+      case 'add':
+        return (parseFloat(numone) + parseFloat(numtwo)).toFixed(3);
+        break;
+      case 'minus':
+        return (parseFloat(numone) - parseFloat(numtwo)).toFixed(3);
+        break;
+      case 'multiply':
+        return (parseFloat(numone) * parseFloat(numtwo)).toFixed(3);
+        break;
+      case 'divide':
+        return (parseFloat(numone) / parseFloat(numtwo)).toFixed(3);
+        break;
+      default:
+        alert('无法计算');
+    }
+  }
+
+  clear.onclick = function() {
+    numone = 0;
+    numtwo = 0;
+    count = '';//运算规则
+    operator = '';//运算符
+    input.value = '';
+    display.value = '';
+  }
+
+  back.onclick = function() {
+    var str = '';
+    console.log(input.value);
+    console.log(typeof(input.value));
+    for(var i = 0;i < input.value.length-1;i++) {
+      str += input.value[i];
+    }
+    input.value = str;
+  }
+</script>
+</html>
