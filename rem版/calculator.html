@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算器</title>
+   <!--用三个参数和一个结果输入来进行运算-->
+</head>
+<link rel="stylesheet" href="./base.css">
+<style>
+  .main {
+    width: 100%;
+    height: 100%;
+  }
+  .main div {
+  }
+  .main button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size:0.8rem;
+    border: 2px solid white;
+    float: left;
+  }
+  .input {
+    width: 100%;
+    height: 1rem;
+    border: 1px solid black;
+    font-size:0.8rem;
+  }
+  .number {
+    background: #0099FF;
+    border: none;
+  }
+  .result {
+    background: #6633FF;
+    border: none;
+  }
+  .count {
+    background: #99FF99;
+    border: none;
+  }
+  .clear {
+    background: #FF9933;
+    border: none;
+  }
+  .back {
+    background: #FFCC99;
+    border: none;
+  }
+</style>
+<body>
+  <div class="main">
+      <h1 style="text-align:center;">计算器</h1>
+      <input type="text" class="input" name="" value="">
+      <button class="clear">清空</button>
+      <button class="back">回退</button>
+      <button class="count" name='divide'>/</button>
+      <button class="count" name='multiply'>*</button>
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="count" name='add'>+</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="count" name='minus'>-</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="result" style="float:right;height:5rem;">=</button>
+      <button class="number" style="width:5rem">0</button>
+      <button class="number">.</button>
+  </div>
+</body>
+<script>
+  var display = document.getElementsByTagName('input')[0];
+  var main = document.getElementsByClassName('main')[0];
+  var clear = document.getElementsByClassName('clear')[0];
+  var back = document.getElementsByClassName('back')[0];
+  main.onclick = function(event) {
+    if(event.target.className != 'result' &&
+      event.target.className != 'clear' &&
+      event.target.className != 'back') {
+      display.value += event.target.innerHTML;
+    }else if(event.target.className == 'result') {
+      display.value = eval(display.value);
+    }
+  }
+
+  clear.onclick = function() {
+    display.value = '';
+  }
+
+  back.onclick = function() {
+    var str = '';
+    for(var i = 0;i < display.value.length-1;i++) {
+      str += display.value[i];
+    }
+    display.value = str;
+  }
+</script>
+<script src="./fixsimple.js"></script>
+</html>
